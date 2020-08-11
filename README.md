@@ -7,11 +7,12 @@
 ## Terminal Enviroment                                                                                                                                                                                                                                                                                                            
 ### Install:                                                                                                                                                                                                                                                                                                                
  ZSH: Not inluded on linux but it is with OSX
-            ```bash
-            sudo apt install zsh
-            ```                                                                                                                                                                                                                                                                                          
+ ```bash
+sudo apt install zsh
+```                                                                                                                                                                                                                                                                                          
    #### oh-my-zsh:                                                                                                                                                                                                                                                                                                    
-            ```bash
+```bash
+            
             # For OSX and Liniux
             # First run to install oh-my-zsh or visit their website for instructions 
             
@@ -31,7 +32,7 @@
             # This will open the nano editor, NOTE to exit nano use control+x and read any prompts at the bottom of the screen.
             # From here change your desiered settings and for my setting see the ZSH CONFIG Section
 
-           ```
+```
            
  #### ZSH CONFIG (.zshrc file): copy & paste from the linked repository.                                                                                           
         LINK:                                                                                                                                                   
