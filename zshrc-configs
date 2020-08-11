@@ -104,7 +104,7 @@ fi
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #LINUX upkeep  
-      alias update="f(){ sudo apt update -y & sudo apt upgrade -y & sudo apt full-upgrade -y & sudo apt autoremove -y & sudo apt autoclean -y & sudo apt clean -y; echo That was easy! You just updated and cleaned your system; unset -f f; }; f"
+      alias update="f(){ sudo apt update -y && sudo apt upgrade -y && sudo apt full-upgrade -y && sudo apt autoremove -y && sudo apt autoclean -y && sudo apt clean -y | echo That was easy! You just updated and cleaned your system; unset -f f; }; f"
 
 #Easy Directory Setup
       alias mkdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
