@@ -21,8 +21,14 @@
     ssh temporary@<host-ip>  
   
 # Step 4) As the Tenoirary User
-    sudo usermod -l <newUsername> <oldUsername>
-    sudo usermod -d /home/newHomeDir -m <newUsername>
+    #normally if not just use the old username#
+   sudo usermod -l <newUsername> ubuntu 
+   
+     # to update the directory use this and name it whatever normaly its the usersname
+     # WARNING you may need to updated the name in any PATHS.
+     # I suggest to use the variable $USER in any PATH commands
+     
+    sudo usermod -d /home/<newUsername> -m <newUsername>
     sudo logout
    
 # Step 5) 
