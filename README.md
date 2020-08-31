@@ -39,4 +39,8 @@ sudo apt install zsh
 ```
            
    #### ZSH CONFIG (.zshrc file): copy & paste from the linked repository.                                                                                           
-[.zshrc settings |  https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup/blob/master/.zshrc-configs ]                                                                                                                                        
+[.zshrc settings |  https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup/blob/master/.zshrc-configs ]  
+
+### Installing Python and Other Techologies on Linux    
+
+Python 3.8 =  
