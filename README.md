@@ -43,4 +43,6 @@ sudo apt install zsh
 
 ### Installing Python and Other Techologies on Linux    
 
-Python 3.8 =  
+Python 3.8 ``` sudo apt install python  
+PIP ``` sudo apt install python3-venv python3-pip ```
+
