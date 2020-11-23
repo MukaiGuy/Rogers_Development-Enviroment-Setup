@@ -3,7 +3,9 @@ My preferences for a comfortable development environment and also the resources 
 If some wants to use my experiances to help them lear thats great!! Just keep in mind I dont privide support. 
 Search online for anything you don't understand and use a few resources to compare notes.
 
-### Note About the OS                                                                                                                                             
+[#shortcuts]
+
+### A note on the OS                                                                                                                                              
 For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too
 
 For Apple People, If you're on a Mac running macOSX 10.14.6 or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/)
@@ -49,7 +51,6 @@ zsh-navigation-tools
 
 ```bash
  
-   
 # from inside of of the repo directory
 mv mukaiguy.zsh-theme ~/.oh-my-zsh/themes/
 
@@ -77,10 +78,8 @@ sudo nano ~/.zshrc
 
 ```
            
- #### ZSH CONFIG (.zshrc file): copy & paste from the linked repository.                                                                                           
-[.zshrc settings |  https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup/blob/master/.zshrc-configs ]  
 
-# My CLI shorcuts 
+# [My CLI shorcuts]([#shortcuts])
 ```shell
 # Python
 	alias pip="pip3"
