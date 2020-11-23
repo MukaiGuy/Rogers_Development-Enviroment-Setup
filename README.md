@@ -9,18 +9,30 @@ For Linux people, Ubuntu is my primary envrioment but it should mostly work on D
 For Apple People, If you're on a Mac running macOSX 10.14.6 or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/)
  
 ## Terminal Enviroment                                                                                                                                                                                                                                                                                                            
-### Install:                                                                                                                                                                                                                                                                                                                
- ZSH: Not inluded on linux but it is with OSX
- ```bas
+### Update & Install 
+Note: zsh is not inluded on linux but it is with OSX
+
+ ```bash
+# Q: Why is the second argument apt and not apt-get? 
+# A: Because full-upgrade is not a command avalible with the apt-get 
 sudo apt-get update && sudo apt full-upgrade -y
 
-sudo ap-get install -y zsh git curl python3-venv python3-pip python3.8
-
-```                                                                                                                                                                                                                                                                                          
-## oh-my-zsh setup and assuming your using my custom theme
-
-My zshrc is setup with the following plugins
+sudo apt-get install -y zsh git curl python3-venv python3-pip python3.8
 ```
+Now you can install oh-my-zsh with this or visit their website for instructions 
+```bash            
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
+```
+
+Once thats done, we need to instal fzf its required for the zsh-interactive-cd plugin:
+```
+sudo apt install fzf
+or
+brew install fzf
+```
+
+These are all the plugins I use:
+```zsh
 plugins=(
 pip
 python
@@ -36,14 +48,7 @@ zsh-navigation-tools
 
 
 ```bash
-            
-# For OSX and Liniux
-# First run to install oh-my-zsh or visit their website for instructions 
-            
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" 
-            
-# For Linux
-sudo apt install fzf
+ 
    
 # from inside of of the repo directory
 mv mukaiguy.zsh-theme ~/.oh-my-zsh/themes/
@@ -59,16 +64,13 @@ mv ~/Rogers_Development-Enviroment-Setup/.zshrc ~/ && source ~/.zshrc
 
     
     
-````   
-# For OSX
-    brew install fzf      
+```  
+
 # For OSX and Liniux 
 Once complete type the following command to enter the settings/config preferances I use nano of basic tasks and its built in on Linux and OSX
 ```
-# For OSX and Liniux 
-# Once complete type the following command to enter the settings/config preferances I use nano of basic tasks and its built in on Linux and OSX
     
-    sudo nano ~/.zshrc
+sudo nano ~/.zshrc
             
     # This will open the nano editor, NOTE to exit nano use control+x and read any prompts at the bottom of the screen.
     # From here change your desiered settings and for my setting see the ZSH CONFIG Section
@@ -102,7 +104,7 @@ Once complete type the following command to enter the settings/config preferance
 # Easy Directory Setup
     alias newdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
 
-# SSH Keygen Default it ed25519
+# SSH Keygen Default it to ed25519 because its more secure
         alias ssh-keygen="ssh-keygen -t ed25519"
        
 # SSH and API Keys
