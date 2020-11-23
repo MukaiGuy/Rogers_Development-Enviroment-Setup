@@ -3,8 +3,8 @@ My preferences for a comfortable development environment and also the resources 
 If some wants to use my experiances to help them lear thats great!! Just keep in mind I dont privide support. 
 Search online for anything you don't understand and use a few resources to compare notes.
 
-* [The Shorcuts](#shortcuts)
-* [The Plugins](#plugins)
+* [The Shorcuts](#the-shortcuts)
+* [The Plugins](#the-plugins)
 
 < ### A note on the OS                                                                                                                                             
 For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/)
@@ -31,7 +31,7 @@ sudo apt install fzf
 or
 brew install fzf
 ```
-# [The Plugins I use](#plugins)
+# [The Plugins]
 These are all the plugins I use:
 ```zsh
 plugins=(
@@ -77,7 +77,7 @@ sudo nano ~/.zshrc
 ```
            
 
-# [My CLI shorcuts](#shortcuts)
+# The Shortcuts
 ```shell
 # Python
 	alias pip="pip3"
