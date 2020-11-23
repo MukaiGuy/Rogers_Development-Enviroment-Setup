@@ -3,7 +3,7 @@ My preferences for a comfortable development environment and also the resources 
 If some wants to use my experiances to help them lear thats great!! Just keep in mind I dont privide support. 
 Search online for anything you don't understand and use a few resources to compare notes.
 
-[#shortcuts]
+[See My Custom]([#shortcuts])
 
 ### A note on the OS                                                                                                                                              
 For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too
