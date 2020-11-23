@@ -36,19 +36,17 @@ brew install fzf
 # Easy Settup Instructions
 
 ```bash
-git clone 
+# Clone it
+git clone git@github.com:MukaiGuy/Rogers_Development-Enviroment-Setup.git
 
-# from inside of of the repo directory
-mv mukaiguy.zsh-theme ~/.oh-my-zsh/themes/
-
-# from outside  
-mv ~/Rogers_Development-Enviroment-Setup/mukaiguy.zsh-theme ~/.oh-my-zsh/themes/
+# Copy the files into place 
+cp ~/Rogers_Development-Enviroment-Setup/mukaiguy.zsh-theme ~/.oh-my-zsh/themes/
 
 # Lets delete the regular .zshrc config file (not to worry I have included .zshrc-orig thats a backup of the standard zshrc)
 sudo rm ~/.zshrc 
 
-# Now we can move the customized and activate it .zshrc file 
-mv ~/Rogers_Development-Enviroment-Setup/.zshrc ~/ && source ~/.zshrc
+# Now we can copy the customized and activate it .zshrc file 
+cp ~/Rogers_Development-Enviroment-Setup/zshrc ~/.zshrc && source ~/.zshrc
 
     
     
