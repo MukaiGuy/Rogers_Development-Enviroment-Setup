@@ -6,9 +6,9 @@ Search online for anything you don't understand and use a few resources to compa
 * [The Shorcuts](#the-shortcuts)
 * [The Plugins](#the-plugins)
 
-< ### A note on the OS                                                                                                                                             
-< For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 
-< or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/) 
+#### A note on the OS                                                                                                                                             
+For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 
+or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/) 
 
 ## Terminal Enviroment                                                                                                                                                                                                                                                                                                            
 ### Update & Install 
