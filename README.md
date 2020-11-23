@@ -3,13 +3,12 @@ My preferences for a comfortable development environment and also the resources 
 If some wants to use my experiances to help them lear thats great!! Just keep in mind I dont privide support. 
 Search online for anything you don't understand and use a few resources to compare notes.
 
-[See My Custom]([#shortcuts])
+* [The Shorcuts](#shortcuts)
+* [The Plugins](#plugins)
 
-### A note on the OS                                                                                                                                              
-For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too
-
-For Apple People, If you're on a Mac running macOSX 10.14.6 or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/)
- 
+< ### A note on the OS                                                                                                                                             
+For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/)
+>
 ## Terminal Enviroment                                                                                                                                                                                                                                                                                                            
 ### Update & Install 
 Note: zsh is not inluded on linux but it is with OSX
@@ -32,7 +31,7 @@ sudo apt install fzf
 or
 brew install fzf
 ```
-
+# [The Plugins I use](#plugins)
 These are all the plugins I use:
 ```zsh
 plugins=(
@@ -47,7 +46,7 @@ zsh-navigation-tools
 )
 ```
 
-
+# Easy Settup Instructions
 
 ```bash
  
@@ -66,8 +65,7 @@ mv ~/Rogers_Development-Enviroment-Setup/.zshrc ~/ && source ~/.zshrc
     
     
 ```  
-
-# For OSX and Liniux 
+# Basic Editing
 Once complete type the following command to enter the settings/config preferances I use nano of basic tasks and its built in on Linux and OSX
 ```
     
@@ -79,7 +77,7 @@ sudo nano ~/.zshrc
 ```
            
 
-# [My CLI shorcuts]([#shortcuts])
+# [My CLI shorcuts](#shortcuts)
 ```shell
 # Python
 	alias pip="pip3"
