@@ -7,8 +7,9 @@ Search online for anything you don't understand and use a few resources to compa
 * [The Plugins](#the-plugins)
 
 < ### A note on the OS                                                                                                                                             
-For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/)
->
+< For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 
+< or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/) 
+
 ## Terminal Enviroment                                                                                                                                                                                                                                                                                                            
 ### Update & Install 
 Note: zsh is not inluded on linux but it is with OSX
@@ -31,25 +32,12 @@ sudo apt install fzf
 or
 brew install fzf
 ```
-# [The Plugins]
-These are all the plugins I use:
-```zsh
-plugins=(
-pip
-python
-colorize
-git
-docker
-ubuntu
-zsh-interactive-cd
-zsh-navigation-tools
-)
-```
 
 # Easy Settup Instructions
 
 ```bash
- 
+git clone 
+
 # from inside of of the repo directory
 mv mukaiguy.zsh-theme ~/.oh-my-zsh/themes/
 
@@ -107,4 +95,17 @@ sudo nano ~/.zshrc
 # SSH and API Keys
         alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'
 ```
-
+# [The Plugins]
+These are all the plugins I use:
+```zsh
+plugins=(
+pip
+python
+colorize
+git
+docker
+ubuntu
+zsh-interactive-cd
+zsh-navigation-tools
+)
+```
