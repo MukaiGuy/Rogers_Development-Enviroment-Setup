@@ -107,3 +107,9 @@ zsh-interactive-cd
 zsh-navigation-tools
 )
 ```
+
+Here is what My Theme Looks like 
+
+![Rogers.zsh-theme]()
+
+
