@@ -1,4 +1,8 @@
 # My Development Enviroment Setup
+Here is what My customized Theme Looks like, if you want to use it just change the theme name to "rogers" and make sure you download it into your oh-my-zsh directory for themes. 
+
+![Rogers.zsh-theme](https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup/blob/master/2020-11-28_My_ZSH-theme.png)
+
 My preferences for a comfortable development environment and also the resources I use the most.
 If some wants to use my experiances to help them lear thats great!! Just keep in mind I dont privide support. 
 Search online for anything you don't understand and use a few resources to compare notes.
@@ -107,9 +111,5 @@ zsh-interactive-cd
 zsh-navigation-tools
 )
 ```
-
-Here is what My Theme Looks like 
-
-![Rogers.zsh-theme]()
 
 
