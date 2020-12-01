@@ -8,7 +8,7 @@ export ZSH="/home/$USER/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="rogers"
+ZSH_THEME="mukaiguy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -43,7 +43,7 @@ export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
-                         
+
 # Uncomment the following line to display red dots whilst waiting for completion.
  COMPLETION_WAITING_DOTS="true"
 
@@ -102,36 +102,42 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
+alias zshconfig="sudo nano ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Python
-	alias pip="pip3"
-	alias python="python3"
-	alias django="django-admin"
-	alias newproject='f(){newdir $1 && python3.8 -m venv .venv && cd .venv && source bin/activate; unset -f f; }; f'
-	alias startvenv='f(){ cd .venv && source bin/activate; unset -f f; }; f'
+        alias pip="pip3"
+        alias updatepip="pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U "
+        alias startdjango="django-admin startproject $1 ."
+        alias runserver="python manage.py runserver"
+        alias createsuperuser="python manage.py createsuperuser"
+        alias makeapp="python manage.py startapp $1"
+        alias start=' cd .venv && source bin/activate && cd ..'
+        alias python="python3"
+        alias django="django-admin"
+        alias newproject=' newdir $1 && python3.8 -m venv .venv && cd .venv && source bin/activate & cd .. && pip list'
+        alias startvenv='f(){ cd .venv && source bin/activate; unset -f f; }; f'
   alias exitvenv="deactivate"
 
 # Postgres
-	alias pg_newuser='createuser --interactive $1'
-	alias newdb='createdb $1 -i'
-	alias deletedb='dropdb $1 -i'
-	alias deleteuser='dropuser $1 -i'
-	alias opendb='psql $1 '
+        alias pg_newuser='createuser --interactive $1'
+        alias newdb='createdb $1 -i'
+        alias deletedb='dropdb $1 -i'
+        alias deleteuser='dropuser $1 -i'
+        alias opendb='psql $1 '
 
-# LINUX upkeep  
+# LINUX upkeep
   alias update="f(){ sudo apt-get update -y && sudo apt full-upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y & echo 'You have updated and cleaned your system'; unset -f f; }; f"
 
   alias refresh="f(){ source ~/.zshrc}; f"
   alias zshconfig="sudo nano ~/.zshrc"
-  alias themeconfig="sudo nano ~/.oh-my-zsh/themes/rogers.zsh-theme"
+  alias themeconfig="sudo nano ~/.oh-my-zsh/themes/mukaigiy.zsh-theme"
 
 # Easy Directory Setup
   alias newdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
 
 # SSH Keygen Default it ed25519
   alias ssh-keygen="ssh-keygen -t ed25519"
-       
-# SSH and API Keys
+
+# Log new API Keys 
    alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'
