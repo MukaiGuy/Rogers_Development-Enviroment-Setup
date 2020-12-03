@@ -28,7 +28,11 @@ Search online for anything you don't understand and use a few resources to compa
 For Linux people, Ubuntu is my primary envrioment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 
 or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/) 
 
+
+
 ## Terminal Enviroment                                                                                                                                                                                                                                                                                                            
+
+
 ### Update & Install 
 Note: zsh is not inluded on linux but it is with OSX
 
@@ -51,37 +55,17 @@ or
 brew install fzf
 ```
 
-# Easy Settup Instructions
-
-```bash
-# Clone it
-git clone git@github.com:MukaiGuy/Rogers_Development-Enviroment-Setup.git
-
-# Copy the files into place 
-cp ~/Rogers_Development-Enviroment-Setup/mukaiguy.zsh-theme ~/.oh-my-zsh/themes/
-
-# Lets delete the regular .zshrc config file (not to worry I have included .zshrc-orig thats a backup of the standard zshrc)
-sudo rm ~/.zshrc 
-
-# Now we can copy the customized and activate it .zshrc file 
-cp ~/Rogers_Development-Enviroment-Setup/zshrc ~/.zshrc && source ~/.zshrc
-
-    
-    
 ```  
 # Basic Editing
 Once complete type the following command to enter the settings/config preferances I use nano of basic tasks and its built in on Linux and OSX
-```
-    
 sudo nano ~/.zshrc
-            
     # This will open the nano editor, NOTE to exit nano use control+x and read any prompts at the bottom of the screen.
     # From here change your desiered settings and for my setting see the ZSH CONFIG Section
 
 ```
            
 
-# The Shortcuts
+# [The Shortcuts]
 ```shell
 # Python
 	alias pip="pip3"
