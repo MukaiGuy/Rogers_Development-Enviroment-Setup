@@ -132,12 +132,30 @@ alias zshconfig="sudo nano ~/.zshrc"
   alias refresh="f(){ source ~/.zshrc}; f"
   alias zshconfig="sudo nano ~/.zshrc"
   alias themeconfig="sudo nano ~/.oh-my-zsh/themes/mukaigiy.zsh-theme"
+  
+  
 
-# Easy Directory Setup
-  alias newdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
-
+#Easy Directory Setup
+    alias newdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
+# the next two aliases are for linux only
+ #  alias class="xdg-open https://generation.instructure.com/courses/247/modules & "
+ # xdg-open will use the defualt application for whatever you pass it. I like using it to pull my most visited websites from the commadline.
+ #  alias nickname="xdg-open <https://some.example.com/whatever/whatever> & "
+	   alias open=" xdg-open $1 & echo 'Ta-Da!' "
+ 
 # SSH Keygen Default it ed25519
   alias ssh-keygen="ssh-keygen -t ed25519"
 
 # Log new API Keys 
    alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'
+   
+# Add Note to Notebook
+	alias note='echo "\"To Exit the note book press enter then shift+ctrl+c"\" && NOTEBOOK=~/Documents/DevOps/QuickNotes.md ; echo "\n- - -\n`date`\n$USER" >> $NOTEBOOK ; $120 >> $NOTEBOOK '
+
+	alias notebook="~/Documents/DevOps/QuickNotes.md"
+	alias readnotes="xdg-open notebook"
+ 
+ # Quick Nav to Default programming DIR
+ #alias newsetup=" if mkdir ~/Documents/DevOps "
+	alias devops="cd ~/Documents/DevOps/ && ls"
+
