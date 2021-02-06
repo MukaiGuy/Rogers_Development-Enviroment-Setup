@@ -8,7 +8,7 @@ To install everything here follow these steps:
 #### Once thats done we need to copy over the settings.  
 5) remove the installed zsh-config with, `rm ~/.zshrc` then copy this zsh-config with `cp zshrc ~/.zshrc` <br>
 OR	==> in one line use __`rm ~/.zshrc && cp zshrc ~/.zshrc`__
-6) Copy the theme file into the themes folder. __`cp mukaiguy.zsh-themes ~/.oh-my-zsh/themes/mukaiguy.zsh-theme`__
+6) Copy the theme file into the themes folder. __`cp mukaiguy.zsh-theme ~/.oh-my-zsh/themes/mukaiguy.zsh-theme`__
 7) Last step! Activate the new zsh-configs! __`source ~/.zshrc`__
 
 __Enjoy!__
