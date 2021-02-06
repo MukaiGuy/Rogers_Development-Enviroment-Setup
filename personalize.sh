@@ -1,3 +1,3 @@
-#!/bin/bash
+#!/bin/zsh
 
-./devsetup.sh && exec cp mukaiguy.zsh-theme ~/.oh-my-zsh/themes/mukaiguy.zsh-theme && sudo rm ~/.zshrc && cp zshrc ~/.zshrc && source ~/.zshrc
+ cp mukaiguy.zsh-theme /home/rmukai/.oh-my-zsh/themes/mukaiguy.zsh-theme && sudo rm /home/rmukai/.zshrc && cp zshrc /home/rmukai/.zshrc && source /home/rmukai/.zshrc
