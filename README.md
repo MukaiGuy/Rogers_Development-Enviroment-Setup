@@ -1,4 +1,4 @@
-# My Development Environment Setup
+# My Development Environment Setup 
 ## Quick & Easy
 To install everything here follow these steps:
 1) Clone this repo, __`git clone https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup.git`__
@@ -10,6 +10,8 @@ To install everything here follow these steps:
 OR	==> in one line use __`rm ~/.zshrc && cp zshrc ~/.zshrc`__
 6) Copy the theme file into the themes folder. __`cp mukaiguy.zsh-theme ~/.oh-my-zsh/themes/mukaiguy.zsh-theme`__
 7) Last step! Activate the new zsh-configs! __`source ~/.zshrc`__
+8) Add my perfered Nano Editor settings. __`cp nanorc.conf /etc/nanorc`__ 
+
 
 __Enjoy!__
 
@@ -82,18 +84,29 @@ sudo nano ~/.zshrc
 	alias opendb='psql $1 '
 
 #LINUX upkeep  
-    alias update="f(){ sudo apt-get update -y && sudo apt full-upgrade -y && sudo apt-get autoremove -y && sudo apt autoclean -y && echo 'That was easy! You just updated and cleaned your system'; unset -f f; }; f"
+   	alias update="f(){ sudo apt-get update -y && sudo apt full-upgrade -y && sudo apt-get autoremove -y && sudo apt autoclean -y && echo 'That was easy! You just updated and cleaned your system'; unset -f f; }; f"
 
-    alias refresh="f(){ source ~/.zshrc}; f"    
+        alias refresh="f(){ source ~/.zshrc}; f"    
 
 # Easy Directory Setup
-    alias newdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
+        alias newdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
 
 # SSH Keygen Default it to ed25519 because its more secure
         alias ssh-keygen="ssh-keygen -t ed25519"
        
-# SSH and API Keys
-        alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'
+# Keep track of your API Keys
+        alias newapi='f(){ sudo nano ~/Documents/DevOps/API_Keychain/"$1".api; unset -f f; }; f'
+	
+# Take notes directly from the comandline
+# Add A Timestamped Note to Notebook
+	alias note='echo "\"To Exit the note book press enter then shift+ctrl+c"\" && NOTEBOOK=~/Documents/DevOps/QuickNotes.md ; echo "\n- - -\n`date`\n$USER" >> $NOTEBOOK ; $120 >> $NOTEBOOK '
+
+	alias notebook="~/Documents/DevOps/QuickNotes.md"
+	alias readnotes="xdg-open notebook"
+ 
+
+	
+	
 ```
 # [The Plugins]
 These are all the plugins I use:
