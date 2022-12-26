@@ -1,3 +1,7 @@
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -104,7 +108,7 @@ fi
 # Example aliases
 alias zshconfig="sudo nano ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
+        alias ntpdate="sudo ntpdate 129.6.15.29"
 # Python
         alias pip="pip3"
         alias updatepip="pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U "
@@ -113,9 +117,9 @@ alias zshconfig="sudo nano ~/.zshrc"
         alias createsuperuser="python manage.py createsuperuser"
         alias makeapp="python manage.py startapp $1"
         alias start=' cd .venv && source bin/activate && cd ..'
-        alias python="python3"
+        alias python="python3.10"
         alias django="django-admin"
-        alias newproject=' newdir $1 && python3.8 -m venv .venv && cd .venv && source bin/activate & cd .. && pip list'
+        alias newvenv=' python3.10 -m venv .venv && cd .venv && source bin/activate && cd .. '
         alias startvenv='f(){ cd .venv && source bin/activate; unset -f f; }; f'
   alias exitvenv="deactivate"
 
@@ -159,3 +163,7 @@ alias zshconfig="sudo nano ~/.zshrc"
  #alias newsetup=" if mkdir ~/Documents/DevOps "
 	alias devops="cd ~/Documents/DevOps/ && ls"
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
