@@ -43,7 +43,7 @@ Note: zsh is not included on linux but it is with OSX
 # A: Because full-upgrade is not a command available with the apt-get 
 sudo apt-get update && sudo apt full-upgrade -y
 
-sudo apt-get install -y zsh git curl python3-venv python3-pip python3.8
+sudo apt-get install -y zsh git curl python3-venv python3-pip python3.10
 ```
 Now you can install oh-my-zsh with this or visit their website for instructions 
 ```bash            
