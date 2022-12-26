@@ -148,11 +148,11 @@ alias zshconfig="sudo nano ~/.zshrc"
 	   alias open=" xdg-open $1 & echo 'Ta-Da!' "
  
 # SSH Keygen Default it ed25519
-  alias ssh-keygen="ssh-keygen -t ed25519"
+        alias ssh-keygen="ssh-keygen -t ed25519"
 
 # Log new API Keys 
-   alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'
-   
+        alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'
+        alias newkey="openssl rand -base64 $1"   
 # Add Note to Notebook
 	alias note='echo "\"To Exit the note book press enter then shift+ctrl+c"\" && NOTEBOOK=~/Documents/DevOps/QuickNotes.md ; echo "\n- - -\n`date`\n$USER" >> $NOTEBOOK ; $120 >> $NOTEBOOK '
 
