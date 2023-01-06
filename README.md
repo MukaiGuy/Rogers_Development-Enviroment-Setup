@@ -3,8 +3,10 @@
 To install everything here follow these steps:
 1) Clone this repo, __`git clone https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup.git`__
 2) Move into the cloned directory, __`cd Rogers_Development-Enviroment-Setup`__
+
 3) make the setup script exacutable, __`sudo chmod +x devsetup.sh`__
 4) Execut that script with, __`./devsetup.sh`__ -> watch for any prompts.
+
 #### Once thats done we need to copy over the settings.  
 5) remove the installed zsh-config with, `rm ~/.zshrc` then copy this zsh-config with `cp zshrc ~/.zshrc` <br>
 OR	==> in one line use __`rm ~/.zshrc && cp zshrc ~/.zshrc`__
@@ -28,7 +30,7 @@ Search online for anything you don't understand and use a few resources to compa
 
 #### A note on the OS                                                                                                                                             
 For Linux people, Ubuntu is my primary environment but it should mostly work on Debian/Rasibian too. For Apple People, If you're on a Mac running macOSX 10.14.6 
-or higher most of my notes should work. If you haven't already install [Homebrew](https://brew.sh/) 
+or higher most of my notes should work. If you haven't already installed [Homebrew click here](https://brew.sh/) 
 
 
 
@@ -53,7 +55,7 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 Once that's done, we need to instal fzf its required for the zsh-interactive-cd plugin:
 ```
 sudo apt install fzf
-or
+or for MacOS
 brew install fzf
 ```
 
