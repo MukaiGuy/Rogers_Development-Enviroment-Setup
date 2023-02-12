@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+>>>>>>> refs/remotes/origin/master
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
 
@@ -79,7 +85,7 @@ plugins=(
         zsh-navigation-tools
 )
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -107,11 +113,21 @@ alias zshconfig="sudo nano ~/.zshrc"
 alias ntpdate="sudo ntpdate 129.6.15.29"
 # Python
 alias pip="pip3"
+<<<<<<< HEAD
 alias updatepip="pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U "
 alias startdjango="django-admin startproject $1 ."
 alias runserver="python manage.py runserver"
 alias createsuperuser="python manage.py createsuperuser"
 alias makeapp="python manage.py startapp $1"
+=======
+alias updatepip="pip3 list --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U "
+alias startdjango="django-admin startproject $1 ."
+alias newproject="django-admin startproject --template /Users/rogermukai/Dev/Templates/django_app_template/project_template $1"
+alias runserver="python manage.py runserver"
+alias createsuperuser="python manage.py createsuperuser"
+alias makeapp="python manage.py startapp $1"
+alias newapp="python manage.py startapp --template /Users/rogermukai/Dev/Templates/django_app_template/app_template $1"
+>>>>>>> refs/remotes/origin/master
 alias start=' cd .venv && source bin/activate && cd ..'
 alias python="python3.10"
 alias django="django-admin"
@@ -152,6 +168,10 @@ alias note='echo "\"To Exit the note book press enter then shift+ctrl+c"\" && NO
 
 alias notebook="~/Documents/DevOps/QuickNotes.md"
 alias readnotes="xdg-open notebook"
+<<<<<<< HEAD
+=======
+alias dev="cd ~/Dev && ls"
+>>>>>>> refs/remotes/origin/master
 
 # Quick Nav to Default programming DIR
 #alias newsetup=" if mkdir ~/Documents/DevOps "
@@ -160,3 +180,13 @@ alias devops="cd ~/Documents/DevOps/ && ls"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
+<<<<<<< HEAD
+=======
+
+# Script added PATH variable
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/ssh-copy-id/bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/opt/openssl@3/bin:$PATH"
+>>>>>>> refs/remotes/origin/master
