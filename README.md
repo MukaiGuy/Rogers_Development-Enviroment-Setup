@@ -3,16 +3,14 @@
 To install everything here follow these steps:
 1) Clone this repo, __`git clone https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup.git`__
 2) Move into the cloned directory, __`cd Rogers_Development-Enviroment-Setup`__
-
-3) make the setup script exacutable, __`sudo chmod +x devsetup.sh`__
-4) Execut that script with, __`./devsetup.sh`__ -> watch for any prompts.
+3) Execut that script with, __`./Auto_install.sh`__ -> watch for any prompts.
 
 #### Once thats done we need to copy over the settings.  
-5) remove the installed zsh-config with, `rm ~/.zshrc` then copy this zsh-config with `cp zshrc ~/.zshrc` <br>
+4) remove the installed zsh-config with, `rm ~/.zshrc` then copy this zsh-config with `cp zshrc ~/.zshrc` <br>
 OR	==> in one line use __`rm ~/.zshrc && cp zshrc ~/.zshrc`__
-6) Copy the theme file into the themes folder. __`cp mukaiguy.zsh-theme ~/.oh-my-zsh/themes/mukaiguy.zsh-theme`__
-7) Last step! Activate the new zsh-configs! __`source ~/.zshrc`__
-8) Add my perfered Nano Editor settings. __`cp nanorc.conf /etc/nanorc`__ 
+5) Copy the theme file into the themes folder. __`cp mukaiguy.zsh-theme ~/.oh-my-zsh/themes/mukaiguy.zsh-theme`__
+6) Last step! Activate the new zsh-configs! __`source ~/.zshrc`__
+7) Add my perfered Nano Editor settings. __`cp nanorc.conf /etc/nanorc`__ 
 
 
 __Enjoy!__
