@@ -1,6 +1,13 @@
 # My Development Environment Setup 
 ## Quick & Easy
 To install everything here follow these steps:
+```bash 
+$ git clone https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup.git
+$ cd Rogers_Development-Enviroment-Setup
+$ python install.py
+```
+
+
 1) Clone this repo, __`git clone https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup.git`__
 2) Move into the cloned directory, __`cd Rogers_Development-Enviroment-Setup`__
 3) Execut that script with, __`./Auto_install.sh`__ -> watch for any prompts.
