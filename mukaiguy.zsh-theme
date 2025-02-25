@@ -1,5 +1,5 @@
 echo " "
-PROMPT=$'%{$FG[184]%}| %{$reset_color%}%{$FG[220]%}%n %{$reset_color%}@ %{$reset_color%}%{$FG[044]%}%m%{$reset_color%} %{$FG[076]%}%t %{$reset_color%}⟫ %{$FG[211]%} %~ %{$reset_color%} $(git_prompt_info)\
+PROMPT=$'%{$FG[184]%}| %{$reset_color%}%{$FG[220]%}%n %{$reset_color%}@ %{$reset_color%}%{$FG[044]%}%m%{$reset_color%} %{$FG[076]%}$(date "+%I:%M %p %Z") %{$reset_color%}⟫ %{$FG[211]%} %~ %{$reset_color%} $(git_prompt_info)\
 %{$FG[184]%}|➜ %{$reset_color%} '
 
 ZSH_THEME_GIT_PROMPT_PREFIX="| %{$fg[green]%}"
