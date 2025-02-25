@@ -6,7 +6,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/$USER/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -123,9 +123,9 @@ alias cat="ccat $1"
         alias createsuperuser="python manage.py createsuperuser"
         alias makeapp="python manage.py startapp $1"
         alias start=' cd .venv && source bin/activate && cd ..'
-        alias python="python3.10"
+        alias python="python3"
         alias django="django-admin"
-        alias newvenv=' python3.10 -m venv .venv && cd .venv && source bin/activate && cd .. '
+        alias newvenv=' python3 -m venv .venv && cd .venv && source bin/activate && cd .. '
         alias startvenv='f(){ cd .venv && source bin/activate; unset -f f; }; f'
   alias exitvenv="deactivate"
 
