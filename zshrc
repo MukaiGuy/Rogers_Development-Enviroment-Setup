@@ -108,66 +108,105 @@ fi
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias zshconfig="sudo nano ~/.zshrc"
-alias cat="ccat $1"
 
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-        alias ntpdate="sudo ntpdate 129.6.15.29"
-# Python
-        alias pip="pip3"
-        alias updatepip="pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U "
-        alias startdjango="django-admin startproject $1 ."
-        alias runserver="python manage.py runserver"
-        alias createsuperuser="python manage.py createsuperuser"
-        alias makeapp="python manage.py startapp $1"
-        alias start=' cd .venv && source bin/activate && cd ..'
-        alias python="python3"
-        alias django="django-admin"
-        alias newvenv=' python3 -m venv .venv && cd .venv && source bin/activate && cd .. '
-        alias startvenv='f(){ cd .venv && source bin/activate; unset -f f; }; f'
-  alias exitvenv="deactivate"
+# ============================================================================
+# SYSTEM & SHELL CONFIGURATION
+# ============================================================================
 
-# Postgres
-        alias pg_newuser='createuser --interactive $1'
-        alias newdb='createdb $1 -i'
-        alias deletedb='dropdb $1 -i'
-        alias deleteuser='dropuser $1 -i'
-        alias opendb='psql $1 '
+# Zsh Configuration Management
+alias zshconfig="sudo nano ~/.zshrc"                    # Edit zsh configuration
+alias refresh="source ~/.zshrc"                         # Reload zsh configuration
+alias themeconfig="sudo nano ~/.oh-my-zsh/themes/mukaiguy.zsh-theme"  # Edit custom theme
 
-# LINUX upkeep
-  alias update="f(){ sudo apt-get update -y && sudo apt full-upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y & echo 'You have updated and cleaned your system'; unset -f f; }; f"
+# Enhanced File Operations
+alias cat="ccat $1"                                     # Use colorized cat (requires ccat)
+alias open="xdg-open $1 & echo 'Ta-Da!'"               # Open files with default application (Linux)
 
-  alias refresh="f(){ source ~/.zshrc}; f"
-  alias zshconfig="sudo nano ~/.zshrc"
-  alias themeconfig="sudo nano ~/.oh-my-zsh/themes/mukaigiy.zsh-theme"
-  
-  
+# ============================================================================
+# SYSTEM MAINTENANCE & UPDATES
+# ============================================================================
 
-#Easy Directory Setup
-    alias newdir='f(){ mkdir "$1" && cd "$1"; echo directory "$1" created and you are now inside that new directory; unset -f f; }; f'
-# the next two aliases are for linux only
- #  alias class="xdg-open https://generation.instructure.com/courses/247/modules & "
- # xdg-open will use the defualt application for whatever you pass it. I like using it to pull my most visited websites from the commadline.
- #  alias nickname="xdg-open <https://some.example.com/whatever/whatever> & "
-	   alias open=" xdg-open $1 & echo 'Ta-Da!' "
- 
-# SSH Keygen Default it ed25519
-        alias ssh-keygen="ssh-keygen -t ed25519"
+# Linux System Updates (apt-based distributions)
+alias update="f(){ sudo apt-get update -y && sudo apt full-upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y && echo 'You have updated and cleaned your system'; unset -f f; }; f"
 
-# Log new API Keys 
-        alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'
-        alias newkey="openssl rand -base64 $1"   
-# Add Note to Notebook
-	alias note='echo "\"To Exit the note book press enter then shift+ctrl+c"\" && NOTEBOOK=~/Documents/DevOps/QuickNotes.md ; echo "\n- - -\n`date`\n$USER" >> $NOTEBOOK ; $120 >> $NOTEBOOK '
+# Network Time Synchronization
+alias ntpdate="sudo ntpdate 129.6.15.29"               # Sync system time with NTP server
 
-	alias notebook="~/Documents/DevOps/QuickNotes.md"
-	alias readnotes="xdg-open notebook"
- 
- # Quick Nav to Default programming DIR
- #alias newsetup=" if mkdir ~/Documents/DevOps "
-	alias devops="cd ~/Documents/DevOps/ && ls"
+# ============================================================================
+# PYTHON DEVELOPMENT
+# ============================================================================
+
+# Python Command Shortcuts
+alias python="python3"                                  # Use Python 3 by default
+alias pip="pip3"                                        # Use pip3 by default
+alias updatepip="pip3 list --outdated --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip3 install -U"  # Update all pip packages
+
+# Virtual Environment Management
+alias newvenv="python3 -m venv .venv && cd .venv && source bin/activate && cd .."  # Create new virtual environment
+alias startvenv="f(){ cd .venv && source bin/activate && cd ..; unset -f f; }; f"  # Activate virtual environment
+alias start="cd .venv && source bin/activate && cd .."  # Quick venv activation
+alias exitvenv="deactivate"                            # Deactivate virtual environment
+
+# Django Development
+alias django="django-admin"                            # Django admin shortcut
+alias startdjango="django-admin startproject $1 ."     # Create Django project in current directory
+alias runserver="python manage.py runserver"           # Start Django development server
+alias createsuperuser="python manage.py createsuperuser"  # Create Django superuser
+alias makeapp="python manage.py startapp $1"           # Create new Django app
+
+# ============================================================================
+# DATABASE MANAGEMENT (PostgreSQL)
+# ============================================================================
+
+# PostgreSQL User Management
+alias pg_newuser='createuser --interactive $1'         # Create new PostgreSQL user interactively
+alias deleteuser='dropuser $1 -i'                      # Delete PostgreSQL user with confirmation
+
+# PostgreSQL Database Management
+alias newdb='createdb $1 -i'                           # Create new database with confirmation
+alias deletedb='dropdb $1 -i'                          # Delete database with confirmation
+alias opendb='psql $1'                                 # Connect to PostgreSQL database
+
+# ============================================================================
+# FILE SYSTEM & NAVIGATION
+# ============================================================================
+
+# Directory Management
+alias newdir='f(){ mkdir "$1" && cd "$1"; echo "Directory $1 created and you are now inside that new directory"; unset -f f; }; f'  # Create and enter directory
+
+# Quick Navigation
+alias devops="cd ~/Documents/DevOps/ && ls"             # Navigate to development directory and list contents
+
+# ============================================================================
+# SECURITY & CRYPTOGRAPHY
+# ============================================================================
+
+# SSH Key Generation (using more secure ed25519)
+alias ssh-keygen="ssh-keygen -t ed25519"               # Generate SSH key with ed25519 algorithm
+
+# API Key Management
+alias newapi='f(){ sudo nano ~/.ssh/API_Keys/"$1".api; unset -f f; }; f'  # Create/edit API key file
+alias newkey="openssl rand -base64 $1"                 # Generate random base64 key of specified length
+
+# ============================================================================
+# PRODUCTIVITY & NOTE TAKING
+# ============================================================================
+
+# Quick Note System
+alias note='echo "\"To Exit the note book press enter then shift+ctrl+c\"" && NOTEBOOK=~/Documents/DevOps/QuickNotes.md ; echo "\n- - -\n`date`\n$USER" >> $NOTEBOOK ; $120 >> $NOTEBOOK'  # Add timestamped note
+alias notebook="nano ~/Documents/DevOps/QuickNotes.md"  # Open notebook for editing
+alias readnotes="xdg-open ~/Documents/DevOps/QuickNotes.md"  # Open notebook for reading
+
+# ============================================================================
+# COMMENTED OUT / EXAMPLE ALIASES
+# ============================================================================
+
+# Website shortcuts (customize these for your frequently visited sites)
+# alias class="xdg-open https://generation.instructure.com/courses/247/modules &"
+# alias nickname="xdg-open <https://some.example.com/whatever/whatever> &"
+
+# Directory setup example
+# alias newsetup="if mkdir ~/Documents/DevOps"
 
 
 export NVM_DIR="$HOME/.nvm"
