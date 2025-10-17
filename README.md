@@ -74,7 +74,7 @@ After installation, set **Hack** as your terminal font for optimal readability w
 
 Here is what my customized theme looks like. The theme is automatically installed during setup:
 
-![mukaiguy.zsh-theme](https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup/blob/master/2020-11-28_My_ZSH-theme.png)
+![mukaiguy.zsh-theme](https://github.com/MukaiGuy/Rogers_Development-Enviroment-Setup/blob/main/2020-11-28_My_ZSH-theme.png)
 
 ## 🛠️ What Gets Installed
 
