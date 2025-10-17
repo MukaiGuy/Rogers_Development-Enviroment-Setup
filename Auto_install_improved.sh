@@ -17,9 +17,9 @@ NC='\033[0m' # No Color
 
 # Script configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LINUX_SCRIPT="devsetup.sh"
-MACOS_SCRIPT="osx_setup_improved.sh"
-PERSONALIZE_SCRIPT="personalize.sh"
+LINUX_SCRIPT="scripts/devsetup.sh"
+MACOS_SCRIPT="scripts/osx_setup_improved.sh"
+PERSONALIZE_SCRIPT="scripts/personalize.sh"
 
 # Logging function
 log() {

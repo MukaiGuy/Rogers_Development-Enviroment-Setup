@@ -16,6 +16,7 @@ NC='\033[0m' # No Color
 
 # Script configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PARENT_DIR="$(dirname "$SCRIPT_DIR")"
 THEME_FILE="mukaiguy.zsh-theme"
 ZSHRC_FILE="zshrc"
 NANORC_FILE="nanorc.conf"
@@ -134,12 +135,10 @@ install_additional_tools() {
 install_custom_theme() {
     show_progress 5 6 "Installing Custom Theme"
 
-    local theme_source="$SCRIPT_DIR/$THEME_FILE"
+    local theme_source="$PARENT_DIR/$THEME_FILE"
     local theme_dest="$HOME/.oh-my-zsh/themes/$THEME_FILE"
 
-    check_file "$theme_source" "Custom theme file"
-
-    if [[ -f "$theme_dest" ]]; then
+    check_file "$theme_source" "Custom theme file"    if [[ -f "$theme_dest" ]]; then
         log "WARN" "Theme file already exists, creating backup..."
         cp "$theme_dest" "$theme_dest.backup.$(date +%s)"
     fi
@@ -153,12 +152,10 @@ install_custom_theme() {
 configure_zsh() {
     show_progress 6 7 "Configuring Zsh"
 
-    local zshrc_source="$SCRIPT_DIR/$ZSHRC_FILE"
+    local zshrc_source="$PARENT_DIR/$ZSHRC_FILE"
     local zshrc_dest="$HOME/.zshrc"
 
-    check_file "$zshrc_source" "Custom .zshrc file"
-
-    # Backup existing .zshrc
+    check_file "$zshrc_source" "Custom .zshrc file"    # Backup existing .zshrc
     if [[ -f "$zshrc_dest" ]]; then
         log "INFO" "Backing up existing .zshrc..."
         cp "$zshrc_dest" "$zshrc_dest.backup.$(date +%s)"
@@ -173,12 +170,10 @@ configure_zsh() {
 install_nanorc() {
     show_progress 7 7 "Installing Nano Configuration"
 
-    local nanorc_source="$SCRIPT_DIR/$NANORC_FILE"
+    local nanorc_source="$PARENT_DIR/$NANORC_FILE"
     local nanorc_dest="$HOME/.nanorc"
 
-    check_file "$nanorc_source" "Nano configuration file"
-
-    # Backup existing .nanorc if it exists
+    check_file "$nanorc_source" "Nano configuration file"    # Backup existing .nanorc if it exists
     if [[ -f "$nanorc_dest" ]]; then
         log "INFO" "Backing up existing .nanorc..."
         cp "$nanorc_dest" "$nanorc_dest.backup.$(date +%s)"
