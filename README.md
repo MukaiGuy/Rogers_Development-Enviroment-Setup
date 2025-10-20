@@ -68,6 +68,11 @@ sudo fc-cache -fv
 
 After installation, set **Hack** as your terminal font for optimal readability with the custom theme.
 
+## UV Python Manager
+```
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
 ## 📸 Theme Preview
 
 **Enjoy!**
