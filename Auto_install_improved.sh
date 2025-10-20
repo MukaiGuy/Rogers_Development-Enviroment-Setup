@@ -58,19 +58,19 @@ detect_os() {
             os_name="Linux"
             if [[ -f /etc/os-release ]]; then
                 local distro=$(grep '^NAME=' /etc/os-release | cut -d'"' -f2)
-                log "INFO" "Detected Linux distribution: $distro"
+                log "INFO" "Detected Linux distribution: $distro" >&2
             else
-                log "INFO" "Detected Linux (distribution unknown)"
+                log "INFO" "Detected Linux (distribution unknown)" >&2
             fi
             ;;
         "Darwin")
             os_name="macOS"
             local macos_version=$(sw_vers -productVersion 2>/dev/null || echo "unknown")
-            log "INFO" "Detected macOS version: $macos_version"
+            log "INFO" "Detected macOS version: $macos_version" >&2
             ;;
         *)
-            log "ERROR" "Unsupported operating system: $os_type"
-            log "INFO" "This script supports Linux and macOS only"
+            log "ERROR" "Unsupported operating system: $os_type" >&2
+            log "INFO" "This script supports Linux and macOS only" >&2
             exit 1
             ;;
     esac

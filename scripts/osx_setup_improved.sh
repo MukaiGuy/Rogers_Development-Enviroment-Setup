@@ -138,7 +138,9 @@ install_custom_theme() {
     local theme_source="$PARENT_DIR/$THEME_FILE"
     local theme_dest="$HOME/.oh-my-zsh/themes/$THEME_FILE"
 
-    check_file "$theme_source" "Custom theme file"    if [[ -f "$theme_dest" ]]; then
+    check_file "$theme_source" "Custom theme file"
+
+    if [[ -f "$theme_dest" ]]; then
         log "WARN" "Theme file already exists, creating backup..."
         cp "$theme_dest" "$theme_dest.backup.$(date +%s)"
     fi

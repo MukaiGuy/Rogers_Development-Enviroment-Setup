@@ -7,6 +7,7 @@ A collection of useful command-line snippets and procedures for Unix/Linux syste
 ## Table of Contents
 
 - [Change Default Username on Ubuntu](#change-default-username-on-ubuntu)
+- [User Management on macOS](#user-management-on-macos)
 - [User and Group Management](#user-and-group-management)
 - [File Permissions and Ownership](#file-permissions-and-ownership)
 - [System Monitoring](#system-monitoring)
@@ -210,6 +211,470 @@ sudo chmod 755 /home/<newUsername>
 3. **Test First:** If possible, test the procedure on a non-production system
 4. **Backup Strategy:** Ensure backups are in place before making changes
 5. **Timing:** Perform username changes during maintenance windows when system usage is low
+
+---
+
+## User Management on macOS
+
+macOS uses a different user management system than Linux, relying on Directory Services and the `dscl` (Directory Service Command Line) utility.
+
+### Creating Users via Command Line
+
+#### Method 1: Using dscl (Recommended for Scripts)
+
+```bash
+#!/bin/bash
+
+# Configuration
+USERNAME="newuser"
+FULLNAME="New User"
+PASSWORD="secure_password"
+USERID="501"  # Must be unique, 501+ for regular users
+
+# Create the user account
+sudo dscl . -create /Users/$USERNAME
+sudo dscl . -create /Users/$USERNAME UserShell /bin/zsh
+sudo dscl . -create /Users/$USERNAME RealName "$FULLNAME"
+sudo dscl . -create /Users/$USERNAME UniqueID "$USERID"
+sudo dscl . -create /Users/$USERNAME PrimaryGroupID 20  # 20 = staff group
+sudo dscl . -create /Users/$USERNAME NFSHomeDirectory /Users/$USERNAME
+
+# Set the password
+sudo dscl . -passwd /Users/$USERNAME "$PASSWORD"
+
+# Create home directory
+sudo createhomedir -c -u $USERNAME
+
+# Add user to admin group (optional - for admin privileges)
+sudo dscl . -append /Groups/admin GroupMembership $USERNAME
+
+echo "User $USERNAME created successfully!"
+```
+
+#### Method 2: Interactive User Creation
+
+```bash
+# Find next available UID
+NEXT_UID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
+NEXT_UID=$((NEXT_UID + 1))
+
+# Set variables
+USERNAME="johndoe"
+FULLNAME="John Doe"
+
+# Create user
+sudo dscl . -create /Users/$USERNAME
+sudo dscl . -create /Users/$USERNAME UserShell /bin/zsh
+sudo dscl . -create /Users/$USERNAME RealName "$FULLNAME"
+sudo dscl . -create /Users/$USERNAME UniqueID "$NEXT_UID"
+sudo dscl . -create /Users/$USERNAME PrimaryGroupID 20
+sudo dscl . -create /Users/$USERNAME NFSHomeDirectory /Users/$USERNAME
+
+# Set password interactively
+sudo dscl . -passwd /Users/$USERNAME
+
+# Create home directory
+sudo createhomedir -c -u $USERNAME
+```
+
+#### Method 3: Using sysadminctl (macOS 10.10+)
+
+```bash
+# Create standard user
+sudo sysadminctl -addUser username -fullName "Full Name" -password "userpassword" -home /Users/username
+
+# Create admin user
+sudo sysadminctl -addUser username -fullName "Full Name" -password "userpassword" -admin
+
+# Create user with interactive password prompt
+sudo sysadminctl -addUser username -fullName "Full Name" -password - -admin
+```
+
+### Managing Users
+
+#### List All Users
+
+```bash
+# List all users
+dscl . -list /Users
+
+# List users with UID
+dscl . -list /Users UniqueID
+
+# List only non-system users (UID >= 501)
+dscl . -list /Users UniqueID | awk '$2 >= 501 {print $1}'
+
+# Get detailed user information
+dscl . -read /Users/username
+```
+
+#### Modify User Properties
+
+```bash
+# Change user's full name
+sudo dscl . -change /Users/username RealName "Old Name" "New Name"
+
+# Change user's shell
+sudo dscl . -change /Users/username UserShell /bin/bash /bin/zsh
+
+# Change user's home directory
+sudo dscl . -change /Users/username NFSHomeDirectory /Users/oldname /Users/newname
+
+# Change password
+sudo dscl . -passwd /Users/username newpassword
+```
+
+#### Delete User
+
+```bash
+# Delete user account (keeps home directory)
+sudo dscl . -delete /Users/username
+
+# Delete user and home directory
+sudo dscl . -delete /Users/username
+sudo rm -rf /Users/username
+
+# Using sysadminctl (safer method)
+sudo sysadminctl -deleteUser username
+```
+
+### Group Management
+
+#### List Groups
+
+```bash
+# List all groups
+dscl . -list /Groups
+
+# List group members
+dscl . -read /Groups/admin GroupMembership
+
+# Check if user is in a group
+dscl . -read /Groups/admin GroupMembership | grep username
+```
+
+#### Add/Remove Users from Groups
+
+```bash
+# Add user to group
+sudo dscl . -append /Groups/groupname GroupMembership username
+
+# Remove user from group
+sudo dscl . -delete /Groups/groupname GroupMembership username
+
+# Add user to admin group (give sudo access)
+sudo dscl . -append /Groups/admin GroupMembership username
+
+# Add user to wheel group (alternative admin access)
+sudo dscl . -append /Groups/wheel GroupMembership username
+```
+
+### Useful User Management Commands
+
+#### Check User Information
+
+```bash
+# Get current user
+whoami
+
+# Get user ID
+id username
+
+# Check if user exists
+dscl . -read /Users/username 2>/dev/null && echo "User exists" || echo "User not found"
+
+# View user's groups
+groups username
+id -Gn username
+```
+
+#### Password Management
+
+```bash
+# Force password change on next login
+sudo pwpolicy -u username -setpolicy "newPasswordRequired=1"
+
+# Set password expiration (days)
+sudo pwpolicy -u username -setpolicy "maxMinutesUntilChangePassword=129600"  # 90 days
+
+# Disable password expiration
+sudo pwpolicy -u username -clearaccountpolicies
+
+# View password policy
+sudo pwpolicy -u username -getpolicy
+```
+
+### Complete User Creation Script
+
+Here's a complete script for creating a new user with all options:
+
+```bash
+#!/bin/bash
+
+# User Creation Script for macOS
+# Usage: sudo ./create_user.sh username "Full Name" [admin]
+
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root (use sudo)"
+   exit 1
+fi
+
+if [[ $# -lt 2 ]]; then
+    echo "Usage: $0 username \"Full Name\" [admin]"
+    exit 1
+fi
+
+USERNAME=$1
+FULLNAME=$2
+MAKE_ADMIN=${3:-no}
+
+# Find next available UID
+NEXT_UID=$(dscl . -list /Users UniqueID | awk '{print $2}' | sort -n | tail -1)
+NEXT_UID=$((NEXT_UID + 1))
+
+echo "Creating user: $USERNAME"
+echo "Full name: $FULLNAME"
+echo "UID: $NEXT_UID"
+
+# Create the user
+dscl . -create /Users/$USERNAME
+dscl . -create /Users/$USERNAME UserShell /bin/zsh
+dscl . -create /Users/$USERNAME RealName "$FULLNAME"
+dscl . -create /Users/$USERNAME UniqueID "$NEXT_UID"
+dscl . -create /Users/$USERNAME PrimaryGroupID 20
+dscl . -create /Users/$USERNAME NFSHomeDirectory /Users/$USERNAME
+
+# Set password
+echo "Enter password for $USERNAME:"
+dscl . -passwd /Users/$USERNAME
+
+# Create home directory
+createhomedir -c -u $USERNAME
+
+# Add to admin group if requested
+if [[ "$MAKE_ADMIN" == "admin" ]]; then
+    echo "Adding $USERNAME to admin group..."
+    dscl . -append /Groups/admin GroupMembership $USERNAME
+fi
+
+echo "User $USERNAME created successfully!"
+echo "Home directory: /Users/$USERNAME"
+echo "Admin privileges: $([[ "$MAKE_ADMIN" == "admin" ]] && echo "Yes" || echo "No")"
+```
+
+### macOS User Types
+
+- **System Users (UID < 500)**: System accounts, not for login
+- **Regular Users (UID >= 501)**: Standard user accounts
+- **Admin Users**: Regular users who are members of the `admin` group
+- **Root User (UID 0)**: Disabled by default on modern macOS
+
+### Important Notes
+
+1. **UID Range**: Use 501+ for regular users (macOS reserves 500 and below)
+2. **Primary Group**: 20 = staff (standard for macOS users)
+3. **Default Shell**: Use `/bin/zsh` (default since macOS Catalina) or `/bin/bash`
+4. **Home Directory**: Always create at `/Users/username`
+5. **Admin Access**: Add to `admin` group for sudo privileges
+
+### Troubleshooting
+
+**User can't login:**
+
+```bash
+# Check if home directory exists
+ls -la /Users/username
+
+# Verify user properties
+dscl . -read /Users/username
+
+# Check if user has valid shell
+dscl . -read /Users/username UserShell
+```
+
+**Permission issues:**
+
+```bash
+# Fix home directory ownership
+sudo chown -R username:staff /Users/username
+
+# Fix home directory permissions
+sudo chmod 755 /Users/username
+```
+
+### Switching to the New User
+
+#### Method 1: Switch User in Terminal (su)
+
+```bash
+# Switch to another user (requires their password)
+su - username
+
+# Switch to another user and run a specific command
+su - username -c "whoami"
+
+# Switch to root (if enabled)
+su -
+```
+
+#### Method 2: Login as User via SSH
+
+```bash
+# Enable Remote Login first (if not already enabled)
+sudo systemsetup -setremotelogin on
+
+# SSH into localhost as the new user
+ssh username@localhost
+
+# SSH from another machine
+ssh username@your-mac-ip-address
+```
+
+#### Method 3: Fast User Switching (GUI)
+
+1. **Enable Fast User Switching:**
+   - System Preferences → Users & Groups → Login Options
+   - Check "Show fast user switching menu"
+
+2. **Switch Users:**
+   - Click your username in the menu bar
+   - Select the user you want to switch to
+   - Enter their password
+
+#### Method 4: Login from Login Screen
+
+```bash
+# Log out current user to return to login screen
+# Method 1: Via command line
+sudo launchctl bootout user/$(id -u)
+
+# Method 2: Via Apple menu
+# Click  → Log Out [username]
+
+# Then select the new user from the login screen
+```
+
+#### Method 5: Using sudo to Execute Commands as Another User
+
+```bash
+# Run command as another user (requires your password if you're admin)
+sudo -u username whoami
+
+# Run command with user's environment
+sudo -i -u username
+
+# Open a shell as another user
+sudo -u username -s
+
+# Run command as another user without password prompt (if configured)
+sudo -u username bash -c 'echo $USER'
+```
+
+#### Method 6: Test New User Login
+
+```bash
+# Verify user can authenticate
+dscl . -authonly username password
+
+# Test login shell
+sudo -u username -i bash -c 'echo "Login successful for $USER"'
+
+# Check user's environment
+sudo -u username -i env
+```
+
+### Complete Login Test Script
+
+```bash
+#!/bin/bash
+# Test if a user can login successfully
+
+USERNAME=$1
+
+if [[ -z "$USERNAME" ]]; then
+    echo "Usage: $0 username"
+    exit 1
+fi
+
+echo "Testing login for user: $USERNAME"
+echo "=================================="
+
+# Check if user exists
+if ! dscl . -read /Users/$USERNAME &>/dev/null; then
+    echo "❌ User $USERNAME does not exist"
+    exit 1
+fi
+echo "✅ User exists"
+
+# Check home directory
+if [[ -d "/Users/$USERNAME" ]]; then
+    echo "✅ Home directory exists: /Users/$USERNAME"
+else
+    echo "❌ Home directory missing: /Users/$USERNAME"
+fi
+
+# Check shell
+SHELL=$(dscl . -read /Users/$USERNAME UserShell | awk '{print $2}')
+echo "✅ User shell: $SHELL"
+
+# Check UID
+UID=$(dscl . -read /Users/$USERNAME UniqueID | awk '{print $2}')
+echo "✅ User UID: $UID"
+
+# Check groups
+GROUPS=$(id -Gn $USERNAME)
+echo "✅ User groups: $GROUPS"
+
+# Check if admin
+if dscl . -read /Groups/admin GroupMembership 2>/dev/null | grep -q $USERNAME; then
+    echo "✅ User has admin privileges"
+else
+    echo "ℹ️  User is a standard user (no admin privileges)"
+fi
+
+echo ""
+echo "To login as this user:"
+echo "  1. Via terminal: su - $USERNAME"
+echo "  2. Via SSH: ssh $USERNAME@localhost"
+echo "  3. Via GUI: Log out and select $USERNAME at login screen"
+```
+
+### Quick Reference for User Switching
+
+| Method | Command | Notes |
+|--------|---------|-------|
+| Switch user in terminal | `su - username` | Requires user's password |
+| Run command as user | `sudo -u username command` | Requires your admin password |
+| Open shell as user | `sudo -u username -s` | Opens user's default shell |
+| SSH as user | `ssh username@localhost` | Remote Login must be enabled |
+| Test authentication | `dscl . -authonly username password` | Validates credentials |
+| Log out current user | `sudo launchctl bootout user/$(id -u)` | Returns to login screen |
+
+### Tips for Testing New Users
+
+1. **Always test in a new terminal window first:**
+   ```bash
+   # Open new terminal and try
+   su - newuser
+   ```
+
+2. **Verify home directory contents:**
+   ```bash
+   sudo -u newuser ls -la /Users/newuser
+   ```
+
+3. **Check if user can write to home directory:**
+   ```bash
+   sudo -u newuser touch /Users/newuser/test.txt
+   sudo -u newuser rm /Users/newuser/test.txt
+   ```
+
+4. **Verify environment variables:**
+   ```bash
+   sudo -u newuser -i bash -c 'echo $HOME'
+   sudo -u newuser -i bash -c 'echo $USER'
+   sudo -u newuser -i bash -c 'echo $SHELL'
+   ```
 
 ---
 
