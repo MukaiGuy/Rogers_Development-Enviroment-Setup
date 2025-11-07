@@ -375,6 +375,7 @@ zsh-interactive-cd
 zsh-navigation-tools
 )
 ```
-
+## Prefered Terminal App
+![Tabby](https://tabby.sh)
 
 
