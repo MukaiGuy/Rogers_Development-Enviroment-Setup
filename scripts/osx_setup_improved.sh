@@ -18,7 +18,7 @@ NC='\033[0m' # No Color
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PARENT_DIR="$(dirname "$SCRIPT_DIR")"
 THEME_FILE="mukaiguy.zsh-theme"
-ZSHRC_FILE="zshrc"
+ZSHRC_FILE="macOS-zshrc"
 NANORC_FILE="nanorc.conf"
 
 # Logging function

@@ -39,10 +39,37 @@ That's it! The installer now handles:
 - ✅ Essential package installation
 - ✅ Oh My Zsh setup
 - ✅ Custom theme installation
-- ✅ Zsh configuration
+- ✅ OS-specific Zsh configuration (optimized for macOS or Linux)
 - ✅ Nano editor configuration
 - ✅ fzf installation and setup
 - ✅ Automatic backups of existing configurations
+
+## 🖥️ OS-Specific Configuration
+
+This repository now includes **separate, optimized zsh configurations** for macOS and Linux:
+
+### Configuration Files:
+- **`macOS-zshrc`** - Optimized for macOS with:
+  - Homebrew-specific plugins (`brew`, `macos`)
+  - macOS native `open` command
+  - Obsidian integration for note-taking
+  - NVM (Node Version Manager) support
+  - GPG TTY configuration
+  - macOS-optimized PATH settings
+
+- **`linux-zshrc`** - Optimized for Linux with:
+  - Ubuntu/Debian-specific plugins
+  - `xdg-open` for file opening
+  - APT package management aliases
+  - Linux-specific development tools
+
+### Automatic Detection:
+The installation scripts automatically detect your operating system and install the appropriate configuration:
+
+- **macOS**: Uses `macOS-zshrc` → installed as `~/.zshrc`
+- **Linux**: Uses `linux-zshrc` → installed as `~/.zshrc`
+
+You don't need to do anything - the installer handles everything based on your OS!
 
 ## 🔤 Recommended Font: Hack
 
@@ -94,9 +121,31 @@ Here is what my customized theme looks like. The theme is automatically installe
 
 ### Manual Installation Options:
 If you prefer to install components individually, you can run:
-- `./osx_setup_improved.sh` - macOS-specific setup only
-- `./devsetup.sh` - Linux-specific setup only
-- `./personalize.sh` - Additional personalizations
+- `./scripts/osx_setup_improved.sh` - macOS-specific setup only
+- `./scripts/devsetup.sh` - Linux-specific setup only
+- `./scripts/personalize.sh` - Additional personalizations (automatically uses correct OS config)
+
+## 📂 Repository Structure
+
+```
+Rogers_Development-Enviroment-Setup/
+├── Auto_install_improved.sh    # Main installer with OS detection
+├── macOS-zshrc                 # macOS-optimized zsh configuration
+├── linux-zshrc                 # Linux-optimized zsh configuration
+├── mukaiguy.zsh-theme         # Custom Oh My Zsh theme
+├── nanorc.conf                # Nano editor configuration
+├── README.md                  # This file
+├── unix-admin_notes.md        # Unix/Linux administration reference
+└── scripts/
+    ├── osx_setup_improved.sh  # macOS setup script
+    ├── devsetup.sh            # Linux setup script
+    └── personalize.sh         # Personalization script (OS-aware)
+```
+
+**Key Points:**
+- The installer automatically selects the correct zshrc file based on your OS
+- All scripts are now in the `scripts/` subdirectory for better organization
+- Configuration files remain in the root directory for easy access
 
 ## 💡 System Requirements
 
@@ -127,6 +176,12 @@ The script automatically handles Apple Silicon (M1/M2) PATH configuration.
 
 **Backup Files:**
 All existing configurations are automatically backed up with timestamps before being replaced.
+
+**Wrong zshrc file being used:**
+The installation automatically detects your OS and uses the correct configuration file:
+- macOS systems receive `macOS-zshrc`
+- Linux systems receive `linux-zshrc`
+You don't need to manually select which one to use.
 
 ## 🔄 Alternative Installation Methods
 

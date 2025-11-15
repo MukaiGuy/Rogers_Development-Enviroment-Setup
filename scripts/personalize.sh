@@ -14,13 +14,6 @@ YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
-# Script configuration
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PARENT_DIR="$(dirname "$SCRIPT_DIR")"
-THEME_FILE="mukaiguy.zsh-theme"
-ZSHRC_FILE="zshrc"
-NANORC_FILE="nanorc.conf"
-
 # Logging function
 log() {
     local level="$1"
@@ -35,6 +28,36 @@ log() {
         "DEBUG") echo -e "${BLUE}[${timestamp}] DEBUG:${NC} $message" ;;
     esac
 }
+
+# Script configuration
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PARENT_DIR="$(dirname "$SCRIPT_DIR")"
+THEME_FILE="mukaiguy.zsh-theme"
+NANORC_FILE="nanorc.conf"
+
+# Detect OS and set appropriate zshrc file
+detect_os_and_set_zshrc() {
+    local os_type=$(uname -s)
+
+    case "$os_type" in
+        "Linux")
+            ZSHRC_FILE="linux-zshrc"
+            log "INFO" "Linux detected - using linux-zshrc" >&2
+            ;;
+        "Darwin")
+            ZSHRC_FILE="macOS-zshrc"
+            log "INFO" "macOS detected - using macOS-zshrc" >&2
+            ;;
+        *)
+            log "ERROR" "Unsupported operating system: $os_type" >&2
+            log "INFO" "Defaulting to linux-zshrc" >&2
+            ZSHRC_FILE="linux-zshrc"
+            ;;
+    esac
+}
+
+# Initialize ZSHRC_FILE variable
+detect_os_and_set_zshrc
 
 # Progress indicator
 show_progress() {
