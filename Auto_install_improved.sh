@@ -110,12 +110,21 @@ execute_script() {
 
     log "INFO" "Executing $script_name..."
 
-    if "$script_path"; then
-        log "INFO" "$description completed successfully"
-        echo -e "${GREEN}✅ $description - COMPLETED${NC}"
+    if "$script_path" 2>&1; then
+        local exit_code=$?
+        if [[ $exit_code -eq 0 ]]; then
+            log "INFO" "$description completed successfully"
+            echo -e "${GREEN}✅ $description - COMPLETED${NC}"
+        else
+            log "ERROR" "$description failed with exit code $exit_code"
+            echo -e "${RED}❌ $description - FAILED${NC}"
+            return 1
+        fi
     else
-        log "ERROR" "$description failed with exit code $?"
+        local exit_code=$?
+        log "ERROR" "$description failed with exit code $exit_code"
         echo -e "${RED}❌ $description - FAILED${NC}"
+        echo -e "${RED}Check the error messages above for details${NC}"
         return 1
     fi
 }
@@ -183,7 +192,16 @@ main() {
     # Execute personalization script if available
     if [[ -n "$PERSONALIZE_SCRIPT" ]]; then
         echo -e "\n${BLUE}🎨 Proceeding with personalization...${NC}\n"
-        execute_script "$PERSONALIZE_SCRIPT" "Environment Personalization"
+        if ! execute_script "$PERSONALIZE_SCRIPT" "Environment Personalization"; then
+            log "WARN" "Personalization script failed - creating basic .zshrc as fallback"
+            echo -e "${YELLOW}⚠️  Personalization failed, creating basic configuration...${NC}"
+            
+            # Create basic .zshrc if it doesn't exist
+            if [[ ! -f "$HOME/.zshrc" ]]; then
+                log "INFO" "Creating basic .zshrc from Oh My Zsh template"
+                cp "$HOME/.oh-my-zsh/templates/zshrc.zsh-template" "$HOME/.zshrc" 2>/dev/null || true
+            fi
+        fi
     fi
 
     # Success message
