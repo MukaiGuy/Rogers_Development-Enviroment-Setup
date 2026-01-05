@@ -50,10 +50,29 @@ update_system() {
     show_progress 1 5 "Updating System Packages"
 
     log "INFO" "Updating package lists..."
-    sudo apt-get update -y
+    # Capture the output and exit code
+    local update_output
+    local update_exit_code
+    update_output=$(sudo apt-get update -y 2>&1) || update_exit_code=$?
+    
+    if [[ $update_exit_code -ne 0 ]]; then
+        # Check if it's just a repository signature issue (non-critical)
+        if echo "$update_output" | grep -q "NO_PUBKEY\|not signed\|GPG error"; then
+            log "WARN" "Some repositories have GPG key issues but main repositories are accessible"
+            log "WARN" "You may want to fix repository issues later, but continuing with installation..."
+            echo "$update_output" | grep -E "NO_PUBKEY|not signed|GPG error" | head -3
+        else
+            log "ERROR" "Failed to update package lists. Check your internet connection and apt sources."
+            echo "$update_output"
+            return 100
+        fi
+    fi
 
     log "INFO" "Upgrading installed packages..."
-    sudo apt full-upgrade -y
+    if ! sudo apt full-upgrade -y; then
+        log "ERROR" "Failed to upgrade packages. You may need to resolve conflicts manually."
+        return 100
+    fi
 
     log "INFO" "System update completed"
 }
@@ -69,7 +88,10 @@ install_packages() {
             log "INFO" "$package is already installed"
         else
             log "INFO" "Installing $package..."
-            sudo apt-get install -y "$package"
+            if ! sudo apt-get install -y "$package"; then
+                log "ERROR" "Failed to install $package"
+                return 100
+            fi
         fi
     done
 
@@ -85,8 +107,17 @@ install_oh_my_zsh() {
     else
         log "INFO" "Downloading and installing Oh My Zsh..."
         # Using wget since it's more commonly available on Linux
-        sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        if ! sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended; then
+            log "ERROR" "Failed to install Oh My Zsh. Check your internet connection."
+            return 100
+        fi
         log "INFO" "Oh My Zsh installation completed"
+        
+        # Verify installation
+        if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+            log "ERROR" "Oh My Zsh directory not found after installation"
+            return 100
+        fi
     fi
 }
 
@@ -98,7 +129,10 @@ install_fzf() {
         log "INFO" "fzf is already installed"
     else
         log "INFO" "Installing fzf..."
-        sudo apt-get install -y fzf
+        if ! sudo apt-get install -y fzf; then
+            log "ERROR" "Failed to install fzf"
+            return 100
+        fi
 
         # Install fzf key bindings if available
         if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
@@ -114,11 +148,14 @@ cleanup_system() {
     show_progress 5 5 "Cleaning Up"
 
     log "INFO" "Removing unnecessary packages..."
-    sudo apt-get autoremove -y
+    if ! sudo apt-get autoremove -y; then
+        log "WARN" "Failed to remove unnecessary packages (non-critical)"
+    fi
 
     log "INFO" "Cleaning package cache..."
-    sudo apt-get autoclean -y
-
+    if ! sudo apt-get autoclean -y; then
+        log "WARN" "Failed to clean package cache (non-critical)"
+    fi
     log "INFO" "System cleanup completed"
 }
 
@@ -140,11 +177,23 @@ main() {
     fi
 
     # Run installation steps
-    update_system
-    install_packages
-    install_oh_my_zsh
-    install_fzf
-    cleanup_system
+    update_system || exit 100
+    install_packages || exit 100
+    install_oh_my_zsh || exit 100
+    install_fzf || exit 100
+    cleanup_system || exit 100
+
+    # Set zsh as default shell
+    if [[ "$SHELL" != "$(which zsh)" ]]; then
+        log "INFO" "Setting zsh as default shell..."
+        if chsh -s "$(which zsh)"; then
+            log "INFO" "Default shell changed to zsh"
+        else
+            log "WARN" "Could not automatically change shell. Run manually: chsh -s $(which zsh)"
+        fi
+    else
+        log "INFO" "zsh is already the default shell"
+    fi
 
     echo -e "\n${GREEN}🎉 Linux setup completed successfully!${NC}"
     echo -e "${YELLOW}Important next steps:${NC}"
