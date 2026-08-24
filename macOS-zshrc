@@ -270,3 +270,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export GPG_TTY=$(tty)
+
+
+# UV
+source $HOME/.local/bin/env
+eval "$(uv generate-shell-completion zsh)"
+
+# Fix Option + Backspace (Delete one word backward)
+bindkey '^[^?' backward-kill-word
+
+# Fix Cmd + Backspace (Delete entire line backward)
+bindkey '^U' backward-kill-line
