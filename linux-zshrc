@@ -27,14 +27,13 @@ ZSH_THEME="mukaiguy"
 # Case-sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to automatically update without prompting.
- DISABLE_UPDATE_PROMPT="true"
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+ zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=7
+ zstyle ':omz:update' frequency 7
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS="true"
@@ -155,6 +154,14 @@ alias createsuperuser="python manage.py createsuperuser"  # Create Django superu
 alias makeapp="python manage.py startapp $1"           # Create new Django app
 
 # ============================================================================
+# NETWORK & MACOS UTILITIES
+# ============================================================================
+
+# Network Diagnostics
+	alias myip='ip=$(curl -s https://api64.ipify.org) && echo "Your Public IP address is: $ip"'
+                   # Show public IP address
+                   
+# ============================================================================
 # DATABASE MANAGEMENT (PostgreSQL)
 # ============================================================================
 
@@ -166,6 +173,14 @@ alias deleteuser='dropuser $1 -i'                      # Delete PostgreSQL user 
 alias newdb='createdb $1 -i'                           # Create new database with confirmation
 alias deletedb='dropdb $1 -i'                          # Delete database with confirmation
 alias opendb='psql $1'                                 # Connect to PostgreSQL database
+
+# ============================================================================
+# DATE & TIME UTILITIES
+# ============================================================================
+
+# Epoch Timestamp Conversion
+alias timestamp='f(){ echo "Human-readable time: "; date -d @"$1"; unset -f f; }; f'  # Convert epoch timestamp to human-readable date (usage: timestamp 1700000000)
+alias now="date +%s"                                   # Get current Unix epoch timestamp
 
 # ============================================================================
 # FILE SYSTEM & NAVIGATION

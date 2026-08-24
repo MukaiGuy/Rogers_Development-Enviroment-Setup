@@ -123,22 +123,31 @@ install_oh_my_zsh() {
 
 # Install fzf
 install_fzf() {
-    showif ! sudo apt-get install -y fzf; then
-            log "ERROR" "Failed to install fzf"
-            return 100
-        fizf (Fuzzy Finder)"
+    show_progress 4 5 "Installing fzf (Fuzzy Finder)"
 
     if command_exists fzf; then
         log "INFO" "fzf is already installed"
     else
         log "INFO" "Installing fzf..."
-        sudo apt-get install -y fzf
+        if ! sudo apt-get install -y fzf; then
+            log "ERROR" "Failed to install fzf"
+            return 100
+        fi
 
         # Install fzf key bindings if available
         if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
             log "INFO" "fzf key bindings are available"
         fi
 
+        log "INFO" "fzf installation completed"
+    fi
+}
+
+# Clean up system
+cleanup_system() {
+    show_progress 5 5 "Cleaning Up"
+
+    log "INFO" "Removing unnecessary packages..."
     if ! sudo apt-get autoremove -y; then
         log "WARN" "Failed to remove unnecessary packages (non-critical)"
     fi
@@ -147,16 +156,6 @@ install_fzf() {
     if ! sudo apt-get autoclean -y; then
         log "WARN" "Failed to clean package cache (non-critical)"
     fi
-# Clean up system
-cleanup_system() {
-    show_progress 5 5 "Cleaning Up"
-
-    log "INFO" "Removing unnecessary packages..."
-    sudo apt-get autoremove -y
-
-    log "INFO" "Cleaning package cache..."
-    sudo apt-get autoclean -y
-
     log "INFO" "System cleanup completed"
 }
 
@@ -165,11 +164,11 @@ main() {
     log "INFO" "Starting Linux Development Environment Setup"
     log "INFO" "Script directory: $SCRIPT_DIR"
 
-    # Check if we || exit 100
-    install_packages || exit 100
-    install_oh_my_zsh || exit 100
-    install_fzf || exit 100
-    cleanup_system || exit 100
+    # Check if we're on Linux
+    if [[ "$OSTYPE" != "linux-gnu"* ]]; then
+        log "ERROR" "This script is designed for Linux only"
+        exit 1
+    fi
 
     # Check for sudo privileges
     if ! sudo -v; then
@@ -178,11 +177,11 @@ main() {
     fi
 
     # Run installation steps
-    update_system
-    install_packages
-    install_oh_my_zsh
-    install_fzf
-    cleanup_system
+    update_system || exit 100
+    install_packages || exit 100
+    install_oh_my_zsh || exit 100
+    install_fzf || exit 100
+    cleanup_system || exit 100
 
     # Set zsh as default shell
     if [[ "$SHELL" != "$(which zsh)" ]]; then
